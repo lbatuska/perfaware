@@ -1,0 +1,3 @@
+[submodule "buildpp"]
+	path = buildpp
+	url = https://github.com/lbatuska/buildpp.git
