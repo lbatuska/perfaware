@@ -1,9 +1,16 @@
-#include <iostream>
-#include <type_traits>
+#include <unistd.h>
 
-#include "include/json.h"
+#include <cstdint>
+#include <iostream>
+
+#include "include/Json.h"
+#include "include/Profiler.h"
+typedef uint64_t u64;
+typedef double f64;
 
 int main(int argc, char* argv[]) {
+  BeginProfile();
+
   std::string jsonstring{
       R"(
 {
@@ -29,5 +36,6 @@ int main(int argc, char* argv[]) {
 
   std::cout << x.value() << " \n";
 
+  EndAndPrintProfile();
   return 0;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <cstdint>
 
 // We will use FNV-1a and __FILE_NAME__ to generate a per file unique ID to
@@ -25,3 +26,11 @@ constexpr uint16_t hash_to_16bit(uint32_t hash) {
 }
 
 #define GetFileID hash_to_16bit(FNV_1a(__FILE_NAME__))
+
+#define FileIDString                                    \
+  {static_cast<char>('0' + ((GetFileID / 10000) % 10)), \
+   static_cast<char>('0' + ((GetFileID / 1000) % 10)),  \
+   static_cast<char>('0' + ((GetFileID / 100) % 10)),   \
+   static_cast<char>('0' + ((GetFileID / 10) % 10)),    \
+   static_cast<char>('0' + (GetFileID % 10)),           \
+   '\0'}

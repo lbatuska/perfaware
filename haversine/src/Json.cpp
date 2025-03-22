@@ -1,8 +1,10 @@
-#include "../include/json.h"
+#include "../include/Json.h"
 
 #include <optional>
 
 std::optional<json> json::json_parser::parse() {
+  TimeFunctionSafe;
+
   skip_whitespace();
 
   if (text[pos] == '{') return parse_object();
@@ -25,6 +27,8 @@ std::optional<json> json::json_parser::parse() {
 }
 
 std::optional<json> json::json_parser::parse_object() {
+  TimeFunctionSafe;
+
   pos++;  // Consume '{'
   skip_whitespace();
   std::map<std::string, json> obj;
@@ -57,6 +61,8 @@ std::optional<json> json::json_parser::parse_object() {
 }
 
 std::optional<json> json::json_parser::parse_array() {
+  TimeFunctionSafe;
+
   pos++;  // Consume '['
   skip_whitespace();
   std::vector<json> arr;
@@ -76,6 +82,8 @@ std::optional<json> json::json_parser::parse_array() {
 }
 
 std::optional<json> json::json_parser::parse_string() {
+  TimeFunctionSafe;
+
   if (text[pos] != '"') return std::nullopt;
   pos++;  // Consume '"'
   std::string result;
@@ -104,6 +112,8 @@ std::optional<json> json::json_parser::parse_string() {
 }
 
 std::optional<json> json::json_parser::parse_number() {
+  TimeFunctionSafe;
+
   size_t start = pos;
   while (pos < text.size() &&
          (std::isdigit(text[pos]) || text[pos] == '.' || text[pos] == '-' ||

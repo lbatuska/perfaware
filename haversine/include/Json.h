@@ -11,6 +11,8 @@
 #include <variant>
 #include <vector>
 
+#include "Profiler.h"
+
 class json;
 
 using json_value =
@@ -65,6 +67,8 @@ class json {
   }
 
   friend std::ostream& operator<<(std::ostream& os, const json& j) {
+    TimeFunctionSafe;
+
     if (std::holds_alternative<std::nullptr_t>(j.value)) {
       os << "null";
       return os;
@@ -126,6 +130,8 @@ class json {
 
    private:
     inline void skip_whitespace() {
+      TimeFunctionSafe;
+
       while (pos < text.size() && std::isspace(text[pos])) pos++;
     };
     std::optional<json> parse_object();  // {}
